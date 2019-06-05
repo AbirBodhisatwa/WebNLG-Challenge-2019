@@ -1,0 +1,4 @@
+P01 - Simple parsing, copied after splitting data
+P02 - Simple + Compression
+P03 - Simple + Ordering
+P04 - Simple + Compression and Ordering

@@ -1,0 +1,33 @@
+#!/bin/bash -login
+
+###==== PBS RESOURCES ====###
+
+### Set to run on CyberLAMP
+#PBS -A cyberlamp_class -l qos=cl_class
+
+### Define the special resource queue within CyberLAMP for accessing single-GPU nodes
+##PBS -l qos=cl_gpu
+
+### Join stdout and stderr into a single logfile
+#PBS -j oe
+
+### Set maximum walltime
+#PBS -l walltime=08:00:00
+
+### Set number of nodes and cores per node; reserve GPU(s) and set compute mode
+#PBS -l nodes=1:ppn=1:gpus=1:shared
+
+### Allocate total memory for the job
+#PBS -l mem=10gb
+
+## tells PBS to send an email on abort, begin and/or exit
+
+#PBS -m abe
+
+## send email to this address
+
+#PBS -M [[[[[[[[[[[[[[[   YOUR EMAIL HERE    ]]]]]]]]]]]]]]]]]]
+
+###==== SCRIPT BODY ====###
+cd /storage/home/a/[[[[[[[[[[[[   YOUR ID HERE    ]]]]]]]]]]]/work/.../nmt
+python -m nmt.nmt --src=vi --tgt=en --vocab_prefix=nmt_tmp/nmt_data/vocab/vocab --train_prefix=nmt_tmp/nmt_data/train/train --dev_prefix=nmt_tmp/nmt_data/dev/dev --out_dir=nmt_tmp/nmt_model1 --num_train_steps=12000 --steps_per_stats=100 --num_layers=2 --num_units=256 --dropout=0.2 --metrics=bleu
